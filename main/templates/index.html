@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="form-group" >
+        <label>警情描述</label>
+        <input type="text" class="form-control" id="alarm_content" placeholder="请输入警情描述" />
+        <div class="column">
+            <button id="btn_classification" class="btn btn-default" >分类</button>
+        </div>
+    </div>
+    <div class="column">
+        <label>结果</label>
+        <input type="text" class="form-control" id="input_result" placeholder="分类结果" />
+        <input type="text" class="form-control" id="input_result_type" placeholder="分类结果" />
+    </div>
+</div>
+{% endblock content %}
+
+
