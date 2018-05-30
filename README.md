@@ -1,7 +1,7 @@
 # AlarmClassification
 
 ## init database
-* python manage.py makemigrate
+* python manage.py makemigrations
 * python manage.py migrate
 ## create user
 * python manage.py createsuperuser

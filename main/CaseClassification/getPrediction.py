@@ -208,17 +208,18 @@ def get_individual_prediction(param_path, test_data, stop_word_path):
         return res
 
 def predictionCase(caseContent):
-    # pwd = os.getcwd()
-    # project_path = os.path.abspath(os.path.dirname(pwd)+os.path.sep+".")
-    #
-    # param_path = project_path + '\param'
-    # stop_word_path =  project_path + '\data\stopwords.txt'
+    pwd = os.getcwd()
+    project_path = os.path.abspath(os.path.dirname(pwd)+os.path.sep+".")
 
-    param_path = r'D:\Project\AlarmClassification\main\param'
-    stop_word_path =  r'D:\Project\AlarmClassification\main\data\stopwords.txt'
+    param_path = project_path + '\AlarmClassification\main\param'
+    stop_word_path =  project_path + '\AlarmClassification\main\data\stopwords.txt'
+
+    # param_path = r'../param'
+    # stop_word_path =  r'../data/stopwords.txt'
 
     print("start prediction...")
     # start = time.time()
+    result = "Exception"
     try:
         result = get_individual_prediction(param_path, caseContent, stop_word_path)
     except Exception as ex:

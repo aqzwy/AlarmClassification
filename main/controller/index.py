@@ -1,12 +1,12 @@
 # 参考代码
-from audioop import reverse
+import uuid
 
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import redirect
 from django.views.generic import ListView
 from kombu.utils import json
 
 from main.CaseClassification.getPrediction import predictionCase
+from main.models.alarm import Alarm
 
 
 class IndexView(ListView):
@@ -21,6 +21,7 @@ class IndexView(ListView):
         return
 
 def index_test(request, ):
+    global alarm_content
     if request.method == 'Post':
         received_json_data = json.loads(request.body)
         return HttpResponse(received_json_data)
@@ -31,11 +32,16 @@ def index_test(request, ):
 
         print(str(request))
         if 'alarm_content' in str(request):
-            content = str(request.GET['alarm_content'])
+            alarm_content = str(request.GET['alarm_content'])
             result_head['result'] = '200'
             result_head['detail'] = 'successful'
-            result_data['content'] = content
-            result_data['type'] = predictionCase(content)
+            result_data['content'] = alarm_content
+            result_data['type'] = predictionCase(alarm_content)
+
+            # save alarm and result
+            alarm_obj = Alarm(content=alarm_content, alarm_id=uuid.uuid1(), first_type=' ', second_type=' ',
+                              third_type=result_data['type'], fourth_type=' ')
+            alarm_obj.save()
         else:
             detail = "parameter error, alarm_content can't be null!"
             result_head['result'] = '400'
