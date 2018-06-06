@@ -5,7 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import ListView
 from kombu.utils import json
 
-from main.CaseClassification.getPrediction import predictionCase
+from main.xgboost.getPrediction import predictionCase
 from main.models.alarm import Alarm
 
 

@@ -19,6 +19,7 @@ function prediction(event){
     $('#input_result').val("正在解析中...");
     $('#input_result_type').val("正在解析中...");
 
+    console.time(1);
     $.get("/test/",{"alarm_content": alarm_content},
         function(ret){
         $("#btn_classification").attr('disabled',false);
@@ -26,6 +27,7 @@ function prediction(event){
             var result = JSON.parse(ret);
             if( result.data.type !== null ){
                 $('#input_result_type').val(result.data.type);
+                console.timeEnd(1);
             }else{
                 console.log("can't parse result!");
             }
