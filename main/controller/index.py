@@ -5,8 +5,10 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import ListView
 from kombu.utils import json
 
+from main.crawer.address_crawer import get_address_by_crawer
 from main.xgboost.getPrediction import predictionCase
 from main.models.alarm import Alarm
+from main.ltp.address_extract import get_address
 
 
 class IndexView(ListView):
@@ -38,6 +40,9 @@ def index_test(request, ):
             result_data['content'] = alarm_content
             result_data['type'] = predictionCase(alarm_content)
 
+            address = get_address(alarm_content)
+            result_data['type'] += ';' + address
+
             # save alarm and result
             alarm_obj = Alarm(content=alarm_content, alarm_id=uuid.uuid1(), first_type=' ', second_type=' ',
                               third_type=result_data['type'], fourth_type=' ')
@@ -50,6 +55,8 @@ def index_test(request, ):
         result = {}
         result['head'] = result_head
         result['data'] = result_data
+
+        get_address_by_crawer()
 
         response = json.dumps(result)
         return HttpResponse(response)
