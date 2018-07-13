@@ -1,4 +1,5 @@
 # AlarmClassification
+xgboost, pyltp
 
 ## init database
 * python manage.py makemigrations
